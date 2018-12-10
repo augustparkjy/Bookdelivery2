@@ -25,6 +25,8 @@ var con = mysql.createConnection({
 var id
 var pw
 
+console.log(id + ":" + pw)
+
 con.connect(function(err) {
     if (err) throw err;
     con.query("use bd");
@@ -36,6 +38,7 @@ con.connect(function(err) {
 
 app.post('/requestRecharge', function(req, res){
     // 충전 눌렀을 때
+
     if(req.body.info==="recharge"){
         if(req.body.point>0){
             console.log(id)
@@ -64,8 +67,7 @@ app.post('/requestRecharge', function(req, res){
 })
 
 app.post('/login', function(req,res){
-    id = req.body.id
-    pw = req.body.pw
+    
     console.log(id + ':' + pw);
     if(req.body.info==="user"){
         var sql = 'SELECT USER_ID, PASSWORD FROM USER'
@@ -78,7 +80,10 @@ app.post('/login', function(req,res){
                     // console.log(id);
                     // console.log(result[i].PASSWORD)
                     // console.log(pw);
-                    if(id===result[i].USER_ID && pw===result[i].PASSWORD){
+                    if(req.body.id===result[i].USER_ID && req.body.pw===result[i].PASSWORD){
+                        id = req.body.id
+                        pw = req.body.pw
+                        console.log(id+":"+pw)
                         res.sendFile(__dirname + '/views/forUser.html')
                     }
             }
@@ -94,7 +99,10 @@ app.post('/login', function(req,res){
                 console.log(err);
             } else {
                 for(var i=0; i<result.length; i++){
-                    if(id===result[i].PROD_ID && pw===result[i].PASSWORD){
+                    if(req.body.id===result[i].PROD_ID && req.body.pw===result[i].PASSWORD){
+                        id = req.body.id
+                        pw = req.body.pw
+                        console.log(id+":"+pw)
                         res.sendFile(__dirname + '/views/forProvider.html')
                     }
             }
