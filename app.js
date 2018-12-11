@@ -65,7 +65,7 @@ app.post('/search', function(req, res){
             
                 for(var i=0; i<result.length; i++)
                 {
-                    res.write('book id : ' + result[i].book_id + '|book title : ' + result[i].book_title + '|author : ' + result[i].author + '|genre : '+result[i].genre +'|rate : ' + result[i].rate + '<br>');
+                    res.write('<input type="checkbox" name="' + i + '">' + 'book id : ' + result[i].book_id + '|book title : ' + result[i].book_title + '|author : ' + result[i].author + '|genre : '+result[i].genre +'|rate : ' + result[i].rate + '<br>');
                     // return result[i];
                     // console.log(result[i]);
                 }
