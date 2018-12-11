@@ -30,15 +30,48 @@ console.log(id + ":" + pw)
 con.connect(function(err) {
     if (err) throw err;
     con.query("use bd");
-    // con.query("SELECT * FROM user", function (err, result, fields) {
-    //   if (err) throw err;
-    //   console.log(result);
-    // });
   });
 
+//도서 검색 처리
+app.post('/search', function(req, res){
+    var sql = 'SELECT * FROM BOOK'
+    var opt1 = req.body.genre
+    var opt2 = req.body.rate
+
+    switch(req.body.info){
+        case 'title':
+            sql = sql + ' WHERE BOOK_TITLE LIKE "%' + req.body.input + '%"'
+            break;
+        case 'author':
+            sql = sql + ' WHERE AUTHOR LIKE "%' + req.body.input + '%"'
+            break;
+    }
+    if(opt1!=='no'){
+        sql = sql + ' AND genre = '+opt1
+    }
+    if(opt2!=='no'){
+        sql = sql + ' AND rate = '+opt2
+    }
+    
+    con.query(sql, function(err, result, fields){
+        if(err){
+            console.log(err);
+        }
+        if(result.length>0)
+        {
+            for(var i=0; i<result.length; i++)
+            {
+                console.log(result[i]);
+            }
+        }
+        else{
+            console.log('no data');
+        }
+    })
+})
+//충전 처리
 app.post('/requestRecharge', function(req, res){
     // 충전 눌렀을 때
-
     if(req.body.info==="recharge"){
         if(req.body.point>0){
             console.log(id)
@@ -57,7 +90,8 @@ app.post('/requestRecharge', function(req, res){
         // 0이하의 값을 입력했을 때
         // 팝업 처리
         } else {
-            console.log('invalid value')
+            res.sendFile(__dirname + '/views/forUser.html')
+            // console.log('invalid value')
         }
     }
     // 취소 눌렀을 때
@@ -66,6 +100,7 @@ app.post('/requestRecharge', function(req, res){
     }
 })
 
+//로그인 처리
 app.post('/login', function(req,res){
     
     console.log(id + ':' + pw);
@@ -85,10 +120,12 @@ app.post('/login', function(req,res){
                         pw = req.body.pw
                         console.log(id+":"+pw)
                         res.sendFile(__dirname + '/views/forUser.html')
+                        return
                     }
             }
             // res.send('no data');
-            console.log('no data!');
+            res.sendFile(__dirname+'/views/home.html')
+            // console.log('no data!');
         }})
         // res.sendFile(__dirname + '/views/forUser.html')
     }
@@ -104,10 +141,12 @@ app.post('/login', function(req,res){
                         pw = req.body.pw
                         console.log(id+":"+pw)
                         res.sendFile(__dirname + '/views/forProvider.html')
+                        return
                     }
             }
             // res.send('no data!');
-            console.log('no data!');
+            res.sendFile(__dirname+'/views/home.html')
+            // console.log('no data!');
         }})
         // res.sendFile(__dirname + '/views/forProvider.html')
     }

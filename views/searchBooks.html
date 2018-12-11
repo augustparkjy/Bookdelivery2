@@ -3,9 +3,30 @@
     <head>
         <meta charset="utf-8">
         <Title>Bookdelivery</Title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
         <H1>search Books</H1> <br>
+        <form action="/search" method="POST">
+            <input id = "title" name ="info" type = "radio" value="title" checked="checked"> 제목
+            <input id = "author" name ="info" type = "radio" value="author"> 저자<br>
+            장르<br>
+            <input type="radio" name="genre" value="no" checked="checked"> 구분없음<br>
+            <input type="radio" name="genre" value="1"> 스포츠<br>
+            <input type="radio" name="genre" value="2"> 공포<br>
+            <input type="radio" name="genre" value="3"> 액션<br>
+            <input type="radio" name="genre" value="4"> 과학<br>
+            <input type="radio" name="genre" value="5"> 인문학<br>
+
+            등급<br>
+            <input type="radio" name="rate" value="no" checked="checked"> 구분없음<br>
+            <input type="radio" name="rate" value="1"> 전체관람<br>
+            <input type="radio" name="rate" value="2"> 성인<br>
+            <input type="radio" name="rate" value="3"> 15세이상<br>
+            <input type="radio" name="rate" value="4"> 12세이상<br>
+            <input type="radio" name="rate" value="5"> 7세이상<br>
+            
+            <input type="text" name="input">
+            <input type="submit" name="submit" value="검색">
+        </form>
     </body>
 </html>
