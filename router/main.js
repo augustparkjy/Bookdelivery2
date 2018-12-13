@@ -3,43 +3,28 @@
 var express = require('express');
 var router = express.Router();
 
-// middleware that is specific to this router
-router.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now());
-  next();
-});
+// // middleware that is specific to this router
+// router.use(function timeLog(req, res, next) {
+//   console.log('Time: ', Date.now());
+//   next();
+// });
 // define the home page route
 router.get('/', function(req, res) 
 {
     res.render('home.html');
 });
 
-// router.get('/forUser',function(req,res){
-//     res.render('forUser.html');
-// });
+// 이용자
+router.get('/registerProvider/',function(req,res){
+    res.render('registerProvider.html');
+});
 
-// router.get('/forProvider',function(req,res){
-//     res.render('forProvider.html');
-// });
+router.post('/searchBooks',function(req,res){
+    res.render('searchBooks.html');
+});
 
 router.get('/checkOrderForUser',function(req,res){
     res.render('checkOrderForUser.html');
-});
-
-router.get('/checkOrderForProvider',function(req,res){
-    res.render('checkOrderForProvider.html');
-});
-
-router.post('/manageBooks',function(req,res){
-    res.render('manageBooks.html');
-});
-
-router.post('/rechargePoint',function(req,res){
-    res.render('rechargePoint.html');
-});
-
-router.get('/registerProvider/',function(req,res){
-    res.render('registerProvider.html');
 });
 
 router.post('/renewBooks',function(req,res){
@@ -48,8 +33,22 @@ router.post('/renewBooks',function(req,res){
 router.post('/returnBooks',function(req,res){
     res.render('returnBooks.html');
 });
-router.post('/searchBooks',function(req,res){
-    res.render('searchBooks.html');
+
+router.post('/rechargePoint',function(req,res){
+    res.render('rechargePoint.html');
+});
+
+// 제공자
+router.post('/manageBooks',function(req,res){
+    res.render('manageBooks.html');
+});
+
+router.get('/checkOrderForProvider',function(req,res){
+    res.render('checkOrdersforProvider.html');
+});
+
+router.post('/addBooks',function(req,res){
+    res.render('addBook.html');
 });
 
 module.exports = router;

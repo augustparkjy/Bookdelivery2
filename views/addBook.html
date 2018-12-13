@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <Title>Bookdelivery</Title>
+    </head>
+<body>
+    <H1>도서 추가</H1> <br>
+    <form action="/add" method="POST">
+        제목 | <input type="text" name ="title" value="제목을 입력하세요."><br>
+        저자 | <input type="text" name ="author" value="저자를 입력하세요."><br>
+        장르 | <select name='genre'>
+                <option value='sports'>스포츠</option>
+                <option value='horror'>공포</option>
+                <option value='action'>액션</option>
+                <option value='science'>과학</option>
+                <option value='humanities'>인문학</option>
+            </select>
+        등급 | <select name='rate'>
+                <option value='all'>전체이용가</option>
+                <option value='adult'>성인</option>
+          </select>
+        요금 | <input type="text" name ="price" value="요금을 입력하세요."><br>
+        <input type = "submit" name = "info" value="register">
+        <input type = "submit" name = "info" value="cancel">
+    </form>
+</html>

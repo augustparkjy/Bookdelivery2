@@ -3,9 +3,17 @@
     <head>
         <meta charset="utf-8">
         <Title>Bookdelivery</Title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-        <H1>Manage books for Provider</H1> <br>
+        <H1>도서 관리</H1> <br>
+        <form action="/addBooks/" method="POST">
+            <button>도서 추가</button>
+        </form>
+        <form action="/view/" method="POST">
+            <input type = "submit" name = "info" value="등록된 도서 보기">
+        </form>
+        <form action="/checkOrderForProvider/" method="GET">
+            <button>주문 내역</button>
+        </form>
     </body>
 </html>
