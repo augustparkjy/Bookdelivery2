@@ -32,7 +32,10 @@ console.log(id + ":" + pw)
 
 con.connect(function(err) {
     if (err) throw err;
-    con.query("use bd2");
+    con.query("use bd2", function(err, result, fields){
+        if(err) console.log(err)
+        else console.log('connected')
+    })
   });
 // 도서 등록
 app.post('/add', function(req, res){
@@ -214,14 +217,16 @@ app.post('/requestRecharge', function(req, res){
 
 //로그인 처리
 app.post('/login', function(req,res){
-    
+    console.log(req.body.id)
     if(req.body.info==="user"){
+        // var sql = 'select * from user'
         var sql = 'SELECT PASSWORD FROM USER WHERE USER_ID = ?'
         var params = [req.body.id]
         con.query(sql, params, function(err, result, fields){
             if(err){
                 console.log(err);
             } else {
+                console.log(result)
                 if(req.body.pw==result[0].PASSWORD){
                     id=req.body.id
                     pw=req.body.pw
