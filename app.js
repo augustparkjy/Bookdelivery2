@@ -1,6 +1,5 @@
 var express = require('express')
 var app = express()
-var birds = require('./birds.js');
 var router = require('./router/main.js')
 var http = require('http')
 var bodyParser = require('body-parser');
