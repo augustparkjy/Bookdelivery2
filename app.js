@@ -120,10 +120,9 @@ app.post('/view', function(req, res){
 })
 
 // 도서 대여 신청
-app.post('rent', function(req,res){
-    res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-    res.write('신청완료')
-    res.end();
+app.post('/rent', function(req,res){
+    console.log('rent asf')
+    res.sendFile(__dirname+'/views/rent.html')
 })
 
 //도서 검색 처리
@@ -164,7 +163,7 @@ app.post('/search', function(req, res){
                 for(var i=0; i<result.length; i++)
                 {   
                     res.write('<input type="checkbox" name="select">|' 
-                    + '<input type="button" name="title" value="' + result[i].book + '" disabled="disabled">|'
+                    + '<input type="button" name="title" value="' + result[i].title + '" disabled="disabled">|'
                     + '<input type="button" name="author" value="' + result[i].author + '" disabled="disabled">|'
                     + '<input type="button" name="genre" value="' + result[i].genre + '" disabled="disabled">|'
                     + '<input type="button" name="rate" value="' + result[i].rate + '" disabled="disabled">|'
@@ -219,7 +218,6 @@ app.post('/requestRecharge', function(req, res){
 app.post('/login', function(req,res){
     console.log(req.body.id)
     if(req.body.info==="user"){
-        // var sql = 'select * from user'
         var sql = 'SELECT PASSWORD FROM USER WHERE USER_ID = ?'
         var params = [req.body.id]
         con.query(sql, params, function(err, result, fields){
@@ -227,16 +225,17 @@ app.post('/login', function(req,res){
                 console.log(err);
             } else {
                 console.log(result)
-                if(req.body.pw==result[0].PASSWORD){
+                if(result==""){
+                    res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+                    res.write('no data!');
+                    res.end();
+                    return
+                }
+                else if(req.body.pw==result[0].PASSWORD){
                     id=req.body.id
                     pw=req.body.pw
                     res.sendFile(__dirname + '/views/forUser.html')
                     return
-                }
-                else{
-                    res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                    res.write('no data!');
-                    res.end();
                 }
         }})
     }
@@ -249,16 +248,17 @@ app.post('/login', function(req,res){
             if(err){
                 console.log(err);
             } else {
-                if(req.body.pw==result[0].PASSWORD){
+                if(result==""){
+                    res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+                    res.write('no data!');
+                    res.end();
+                    return
+                }
+                else if(req.body.pw==result[0].PASSWORD){
                     id=req.body.id
                     pw=req.body.pw
                     res.sendFile(__dirname + '/views/forProvider.html')
                     return
-                }
-                else{
-                    res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                    res.write('no data!');
-                    res.end();
                 }
         }})
     }
